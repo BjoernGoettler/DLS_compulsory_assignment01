@@ -1,0 +1,23 @@
+services:
+  logging-db:
+    image: mysql:latest
+    volumes:
+      - loggingdata:/var/lib/mysql
+    env_file:
+      - "shared.env"
+  joke-db:
+    image: mysql:latest
+    volumes:
+      - jokedata:/var/lib/mysql
+    env_file:
+      - "shared.env"
+  user-db:
+    image: mysql:latest
+    volumes:
+      - userdata:/var/lib/mysql
+    env_file:
+      - "shared.env"
+volumes:
+  loggingdata:
+  jokedata:
+  userdata:
