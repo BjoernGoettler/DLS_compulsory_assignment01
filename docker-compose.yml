@@ -5,6 +5,12 @@ services:
       - loggingdata:/var/lib/mysql
     env_file:
       - "shared.env"
+  tracing-db:
+    image: mysql:latest
+    volumes:
+      - tracingdata:/var/lib/mysql
+    env_file:
+      - "shared.env"
   joke-db:
     image: mysql:latest
     volumes:
@@ -13,12 +19,6 @@ services:
       - "shared.env"
     ports:
       - 3306:3306
-  user-db:
-    image: mysql:latest
-    volumes:
-      - userdata:/var/lib/mysql
-    env_file:
-      - "shared.env"
   joke-service:
     build:
       context: .
@@ -28,8 +28,9 @@ services:
         condition: service_started
     ports:
       - 8080:8080
-      
 volumes:
   loggingdata:
+  metricsdata:
+  tracingdata:
   jokedata:
-  userdata:
+  
