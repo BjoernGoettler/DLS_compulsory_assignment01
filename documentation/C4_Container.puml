@@ -1,0 +1,19 @@
+@startuml C4_Container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+
+title Container Diagram
+
+Person(user, "Joker", "Someone who want's a joke, or submit a new one")
+Container_Boundary(c1, "Joke Service") {
+    Container(service, "Joke Service", "C#, API", "Serves old jokes, and registers new ones")
+    ContainerDb(database, "Database", "MySQL", "Persists jokes")
+}
+Container_Ext(logging, "Logging", "Logs the loggable")
+Rel_D(user, service, "Queries", "http")
+Rel_R(service, database, "interacts", "EntityFramework")
+Rel_R(c1, logging, "logs", "What needs to be logged")
+SHOW_LEGEND()
+@enduml 
