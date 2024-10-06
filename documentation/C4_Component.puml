@@ -1,4 +1,4 @@
-@startuml
+@startuml C4_Component
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 !include <C4/C4_Container.puml>
 title Component Diagram
