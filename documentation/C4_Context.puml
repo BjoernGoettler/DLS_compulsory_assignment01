@@ -4,7 +4,7 @@
 !define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
 !define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
 
-
+title Context Diagram
 
 Person(user, "Funny guy", "People who are in need of sharing jokes", $sprite="person")
 
