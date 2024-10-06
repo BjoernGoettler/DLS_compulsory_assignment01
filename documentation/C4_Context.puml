@@ -1,0 +1,20 @@
+@startuml C4_Elements
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+
+
+
+Person(user, "Funny guy", "People who are in need of sharing jokes", $sprite="person")
+
+System_Boundary(c1, "Joke Service") {
+    System(service, "Joke Service", "Serves and registers jokes")
+    System(logging, "Logging Service", "Log everything worth logging")
+}
+Rel(user, service, "Makes fun", "http")
+Rel_R(service, logging, "Logs", "Everything", $tags="logs")
+
+SHOW_LEGEND()
+
+@enduml
