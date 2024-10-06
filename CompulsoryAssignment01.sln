@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokeService", "JokeService\JokeService.csproj", "{3F0F9639-026B-4095-9A7F-4976DAFCC563}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerService", "LoggerService\LoggerService.csproj", "{C14A8EC6-58CD-43B8-AC5A-91B5A650B33D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{3F0F9639-026B-4095-9A7F-4976DAFCC563}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F0F9639-026B-4095-9A7F-4976DAFCC563}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F0F9639-026B-4095-9A7F-4976DAFCC563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C14A8EC6-58CD-43B8-AC5A-91B5A650B33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C14A8EC6-58CD-43B8-AC5A-91B5A650B33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C14A8EC6-58CD-43B8-AC5A-91B5A650B33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C14A8EC6-58CD-43B8-AC5A-91B5A650B33D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
