@@ -11,12 +11,24 @@ services:
       - jokedata:/var/lib/mysql
     env_file:
       - "shared.env"
+    ports:
+      - 3306:3306
   user-db:
     image: mysql:latest
     volumes:
       - userdata:/var/lib/mysql
     env_file:
       - "shared.env"
+  joke-service:
+    build:
+      context: .
+      dockerfile: JokeService/Dockerfile
+    depends_on:
+      joke-db:
+        condition: service_started
+    ports:
+      - 8080:8080
+      
 volumes:
   loggingdata:
   jokedata:

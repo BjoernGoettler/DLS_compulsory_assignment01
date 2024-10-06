@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using JokeService.Models;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
-string connectionString = "Server=localhost; User ID=svendbent; Password=henningipressening; Database=common";
+string connectionString = "Server=joke-db; User ID=svendbent; Password=henningipressening; Database=common";
 builder.Services.AddDbContext<JokeContext>(
     opt => opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
     );
