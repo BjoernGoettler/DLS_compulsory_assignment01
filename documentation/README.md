@@ -11,6 +11,8 @@ brew install plantuml
 For each Context, Container and Component, there is a corresponding puml-file, containing the PlantUML description of the entity 
 At the same level as this README, you will find the following files
 
-- [C4_Context.puml](C4_Context.puml) 
+- [C4_Context.puml](C4_Context.puml)
+- [C4_Container.puml](C4_Container.puml)
+- [C4_Component.puml](C4_Component.puml)
 
 The [images](images) folder contains rendered puml files, as PNG-files
