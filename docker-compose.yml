@@ -18,7 +18,7 @@ services:
     env_file:
       - "shared.env"
     ports:
-      - 3306:3306
+      - 3306
   joke-service:
     build:
       context: .
@@ -27,7 +27,21 @@ services:
       joke-db:
         condition: service_started
     ports:
-      - 8080:8080
+      - 8080
+    deploy:
+      replicas: 2
+  logger-service:
+    build:
+      context: .
+      dockerfile: LoggerService/Dockerfile
+    depends_on:
+      logging-db:
+        condition: service_started
+    ports:
+      - 8080
+    deploy:
+      replicas: 2
+            
 volumes:
   loggingdata:
   metricsdata:
