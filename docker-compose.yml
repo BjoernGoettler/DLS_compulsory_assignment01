@@ -3,6 +3,7 @@ services:
     image: mysql:latest
     volumes:
       - loggingdata:/var/lib/mysql
+      - "./sql/savetheday.sql:/docker-entrypoint-initdb.d/1.sql"
     env_file:
       - "shared.env"
   tracing-db:
@@ -15,6 +16,7 @@ services:
     image: mysql:latest
     volumes:
       - jokedata:/var/lib/mysql
+      - "./sql/savetheday.sql:/docker-entrypoint-initdb.d/1.sql"
     env_file:
       - "shared.env"
     ports:
