@@ -2,10 +2,8 @@
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 !include <C4/C4_Container.puml>
 title Component Diagram
-Person(user, "Jokester", "Funny guy")
-Container_Boundary(jokeContainer, "Joke component") {
-    Component(jokeservice, "Joke Service", $techn=dotnet/API, $descr="Serves the Jokester")
-    ComponentDb(jokedb, "Joke Database", $techn=mysql, $descr="Persists jokes")
+Person(user, "Person", "Someone with logging needs")
+Container_Boundary(clientContainer, "Client component") {
     Component(loggingClient, "Logging Client", $techn="C#/Class Library", $descr="Client that orchestrates communication with the logging gateway")
 }
 Container_Boundary(loggingContainer, "Logging component") {
@@ -17,9 +15,7 @@ Container_Boundary(loggingContainer, "Logging component") {
     ComponentDb(tracingdb, "Tracing Database", $techn=mysql, $descr="Database for tracing")
     ComponentDb(metricsdb, "Metrics Database", $techn=influxDb, $descr="Database for metrics")
 }
-Rel_D(user, jokeservice, "interacts", "HTTP")
-Rel_D(jokeservice, loggingClient, "tells", "Sublime code")
-Rel_R(jokeservice, jokedb, "Queries","dotnet/EntityFramework")
+Rel_D(user, loggingClient, "Implements", "Code")
 Rel_D(loggingClient, loggingGateway, "logs", "ASYNC/HTTP")
 Rel(loggingGateway, loggingService, "Sends log messages", "ASYNC/HTTP")
 Rel(loggingGateway, tracingService, "Send trace messages", "ASYNC/HTTP")
