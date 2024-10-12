@@ -1,4 +1,15 @@
 services:
+  metrics-db:
+    image: mysql:latest
+    volumes:
+      - metricsdata:/var/lib/mysql
+      - "./sql/savetheday.sql:/docker-entrypoint-initdb.d/1.sql"
+    env_file:
+      - "shared.env"
+    healthcheck:
+      test: "mysqladmin ping -h localhost"
+      interval: 1s
+      retries: 10
   logging-db:
     image: mysql:latest
     volumes:
@@ -6,12 +17,21 @@ services:
       - "./sql/savetheday.sql:/docker-entrypoint-initdb.d/1.sql"
     env_file:
       - "shared.env"
+    healthcheck:
+      test: "mysqladmin ping -h localhost"
+      interval: 1s
+      retries: 10
   tracing-db:
     image: mysql:latest
     volumes:
       - tracingdata:/var/lib/mysql
+      - "./sql/savetheday.sql:/docker-entrypoint-initdb.d/1.sql"
     env_file:
       - "shared.env"
+    healthcheck:
+      test: "mysqladmin ping -h localhost"
+      interval: 1s
+      retries: 10
   logger-service:
     build:
       context: .
@@ -27,4 +47,3 @@ volumes:
   loggingdata:
   metricsdata:
   tracingdata:
-  
