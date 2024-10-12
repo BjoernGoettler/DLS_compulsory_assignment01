@@ -12,26 +12,6 @@ services:
       - tracingdata:/var/lib/mysql
     env_file:
       - "shared.env"
-  joke-db:
-    image: mysql:latest
-    volumes:
-      - jokedata:/var/lib/mysql
-      - "./sql/savetheday.sql:/docker-entrypoint-initdb.d/1.sql"
-    env_file:
-      - "shared.env"
-    ports:
-      - 3306
-  joke-service:
-    build:
-      context: .
-      dockerfile: JokeService/Dockerfile
-    depends_on:
-      joke-db:
-        condition: service_started
-    ports:
-      - 8080
-    deploy:
-      replicas: 2
   logger-service:
     build:
       context: .
@@ -43,10 +23,8 @@ services:
       - 8080
     deploy:
       replicas: 2
-            
 volumes:
   loggingdata:
   metricsdata:
   tracingdata:
-  jokedata:
   
