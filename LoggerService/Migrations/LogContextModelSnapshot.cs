@@ -34,7 +34,7 @@ namespace LoggerService.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Message")
+                    b.Property<string>("LogMessage")
                         .IsRequired()
                         .HasColumnType("longtext");
 
