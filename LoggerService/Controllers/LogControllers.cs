@@ -39,8 +39,14 @@ namespace LoggerService.Controllers
         // POST: api/LogControllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Log>> PostLog(Log log)
+        public async Task<ActionResult<Log>> PostLog(LogInDto logdto)
         {
+            Log log = new Log()
+            {
+                Timestamp = DateTime.Now,
+                LogLevel = logdto.LogLevel,
+                LogMessage = logdto.LogMessage,
+            };
             _context.Logs.Add(log);
             await _context.SaveChangesAsync();
 
