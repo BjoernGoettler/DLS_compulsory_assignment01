@@ -2,5 +2,13 @@
 
 GET {{LoggerService_HostAddress}}/api/LogControllers
 Accept: application/json
-
 ###
+GET {{LoggerService_HostAddress}}/api/LogControllers/3
+###
+POST {{LoggerService_HostAddress}}/api/LogControllers
+Content-Type: application/json
+
+{
+  "LogLevel": "DEBUG",
+  "LogMessage": "I wonder if this works"
+}
