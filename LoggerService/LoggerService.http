@@ -1,6 +1,6 @@
-@LoggerService_HostAddress = http://localhost:5216
+@LoggerService_HostAddress = http://localhost:8080
 
-GET {{LoggerService_HostAddress}}/weatherforecast/
+GET {{LoggerService_HostAddress}}/api/LogControllers
 Accept: application/json
 
 ###
