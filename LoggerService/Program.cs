@@ -3,7 +3,7 @@ using LoggerService.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
-string connectionString = "Server=localhost; User ID=svendbent; Password=henningipressening; Database=common";
+string connectionString = "Server=logging-db; User ID=svendbent; Password=henningipressening; Database=common";
 builder.Services.AddDbContext<LogContext>(
     opt => opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
 );

@@ -1,6 +1,14 @@
-@LoggerService_HostAddress = http://localhost:5216
+@LoggerService_HostAddress = http://localhost:8080
 
-GET {{LoggerService_HostAddress}}/weatherforecast/
+GET {{LoggerService_HostAddress}}/api/LogControllers
 Accept: application/json
-
 ###
+GET {{LoggerService_HostAddress}}/api/LogControllers/3
+###
+POST {{LoggerService_HostAddress}}/api/LogControllers
+Content-Type: application/json
+
+{
+  "LogLevel": "BOB",
+  "LogMessage": "I wonder if this works"
+}

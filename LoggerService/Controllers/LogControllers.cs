@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LoggerService.Models;
@@ -41,42 +36,22 @@ namespace LoggerService.Controllers
             return log;
         }
 
-        // PUT: api/LogControllers/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLog(int id, Log log)
-        {
-            if (id != log.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(log).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LogExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/LogControllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Log>> PostLog(Log log)
+        public async Task<ActionResult<Log>> PostLog(LogInDto logdto)
         {
+            string[] allowedLoglevels = { "VERBOSE", "DEBUG", "INFORMATION", "WARNING", "ERROR", "FATAL" };
+            if (!allowedLoglevels.Contains(logdto.LogLevel))
+            {
+                return BadRequest($"Invalid log level: {logdto.LogLevel}. Allowed log levels are {String.Join(",", allowedLoglevels)}");
+            }
+            Log log = new Log()
+            {
+                Timestamp = DateTime.Now,
+                LogLevel = logdto.LogLevel,
+                LogMessage = logdto.LogMessage,
+            };
             _context.Logs.Add(log);
             await _context.SaveChangesAsync();
 
