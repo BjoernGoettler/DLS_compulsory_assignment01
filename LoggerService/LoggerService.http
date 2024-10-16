@@ -9,6 +9,6 @@ POST {{LoggerService_HostAddress}}/api/LogControllers
 Content-Type: application/json
 
 {
-  "LogLevel": "DEBUG",
+  "LogLevel": "BOB",
   "LogMessage": "I wonder if this works"
 }

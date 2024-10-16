@@ -41,6 +41,11 @@ namespace LoggerService.Controllers
         [HttpPost]
         public async Task<ActionResult<Log>> PostLog(LogInDto logdto)
         {
+            string[] allowedLoglevels = { "VERBOSE", "DEBUG", "INFORMATION", "WARNING", "ERROR", "FATAL" };
+            if (!allowedLoglevels.Contains(logdto.LogLevel))
+            {
+                return BadRequest($"Invalid log level: {logdto.LogLevel}. Allowed log levels are {String.Join(",", allowedLoglevels)}");
+            }
             Log log = new Log()
             {
                 Timestamp = DateTime.Now,
