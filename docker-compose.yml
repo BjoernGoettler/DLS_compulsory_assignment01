@@ -6,6 +6,11 @@ services:
       - "./sql/savetheday.sql:/docker-entrypoint-initdb.d/1.sql"
     env_file:
       - "shared.env"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 11s
+      timeout: 5s
+      retries: 5
   tracing-db:
     image: mysql:latest
     volumes:
@@ -20,9 +25,9 @@ services:
       logging-db:
         condition: service_started
     ports:
-      - "8080:8080"
+      - "8080"
     deploy:
-      replicas: 1
+      replicas: 2
 volumes:
   loggingdata:
   metricsdata:
