@@ -27,7 +27,7 @@ services:
     ports:
       - "8080"
     deploy:
-      replicas: 1
+      replicas: 2
 volumes:
   loggingdata:
   metricsdata:
