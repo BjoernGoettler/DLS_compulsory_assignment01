@@ -1,19 +1,49 @@
 @startuml C4_Container
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
+!$COLOR_A_5 = "#7f3b08"
+!$COLOR_A_4 = "#b35806"
+!$COLOR_A_3 = "#e08214"
+!$COLOR_A_2 = "#fdb863"
+!$COLOR_A_1 = "#fee0b6"
+!$COLOR_NEUTRAL = "#f7f7f7"
+!$COLOR_B_1 = "#d8daeb"
+!$COLOR_B_2 = "#b2abd2"
+!$COLOR_B_3 = "#8073ac"
+!$COLOR_B_4 = "#542788"
+!$COLOR_B_5 = "#2d004b"
+!$COLOR_REL_LINE = "#8073ac"
+!$COLOR_REL_TEXT = "#8073ac"
+
+
 !define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
 !define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
 
 title Container Diagram
+AddRelTag("async", $textColor=$COLOR_REL_TEXT, $lineColor=$COLOR_REL_LINE, $lineStyle = DashedLine())
+AddContainerTag(notimplemented, $borderThickness=3, $borderStyle=DashedLine(), $legendText="Not implemented")
 
-Person(user, "Joker", "Someone who want's a joke, or submit a new one")
-Container_Boundary(c1, "Joke Service") {
-    Container(service, "Joke Service", "C#, API", "Serves old jokes, and registers new ones")
-    ContainerDb(database, "Database", "MySQL", "Persists jokes")
+Container_Ext(external, "External System")
+Container_Boundary(monitoringservice, "Monitoring Service"){
+    Container(monitorservice, "Monitor Service", "Orchestrates monitoring", $tags=notimplemented)
+    Container(metricsapi, "Metrics API", "Handles metrics", $tags=notimplemented)
+    Container(trackingapi, "Tracking API", "Handles tracking", $tags=notimplemented)
+    Container(loggingapi, "Logging API", "Handles logging")
+    ContainerDb(metricsdb, "Metrics DB", $tags=notimplemented)
+    ContainerDb(trackingdb, "Tracking DB", $tags=notimplemented)
+    ContainerDb(loggingdb, "Logging DB")
 }
-Container_Ext(logging, "Logging", "Logs the loggable")
-Rel_D(user, service, "Queries", "http")
-Rel_R(service, database, "interacts", "EntityFramework")
-Rel_R(c1, logging, "logs", "What needs to be logged")
+
+Rel(external, monitorservice, "Uses", $tags=async)
+
+Rel(monitorservice, metricsapi, "Measures", "HTTP", $tags=async)
+Rel(metricsapi, metricsdb, "Talks to", "SQL")
+
+Rel(monitorservice, trackingapi, "Tracks", "HTTP", $tags=async)
+Rel(trackingapi, trackingdb, "Talks to", "SQL")
+
+Rel(monitorservice, loggingapi, "Logs", "HTTP", $tags=async)
+Rel(loggingapi, loggingdb, "Talks to", "SQL")
+
 SHOW_LEGEND()
 @enduml 
