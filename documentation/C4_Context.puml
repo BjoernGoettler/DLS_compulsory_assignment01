@@ -1,19 +1,31 @@
 @startuml C4_Context
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
+!$COLOR_A_5 = "#7f3b08"
+!$COLOR_A_4 = "#b35806"
+!$COLOR_A_3 = "#e08214"
+!$COLOR_A_2 = "#fdb863"
+!$COLOR_A_1 = "#fee0b6"
+!$COLOR_NEUTRAL = "#f7f7f7"
+!$COLOR_B_1 = "#d8daeb"
+!$COLOR_B_2 = "#b2abd2"
+!$COLOR_B_3 = "#8073ac"
+!$COLOR_B_4 = "#542788"
+!$COLOR_B_5 = "#2d004b"
+!$COLOR_REL_LINE = "#8073ac"
+!$COLOR_REL_TEXT = "#8073ac"
+
 !define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
 !define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
 
 title Context Diagram
+AddRelTag("async",$textColor=$COLOR_REL_TEXT, $lineColor=$COLOR_REL_LINE, $lineStyle = DashedLine())
+Person_Ext(user, "User")
+System_Ext(externalsystem, "System")
+System(monitoringservice, "Monitoring Service")
 
-Person(user, "Funny guy", "People who are in need of sharing jokes", $sprite="person")
-
-System_Boundary(c1, "Joke Service") {
-    System(service, "Joke Service", "Serves and registers jokes")
-    System(logging, "Logging Service", "Log everything worth logging")
-}
-Rel(user, service, "Makes fun", "http")
-Rel_R(service, logging, "Logs", "Everything", $tags="logs")
+Rel_D(user, externalsystem, "uses")
+Rel_D(externalsystem, monitoringservice,"monitors", $tags=async)
 
 SHOW_LEGEND()
 
