@@ -1,29 +1,41 @@
 @startuml C4_Component
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 !include <C4/C4_Container.puml>
+
+!$COLOR_A_5 = "#7f3b08"
+!$COLOR_A_4 = "#b35806"
+!$COLOR_A_3 = "#e08214"
+!$COLOR_A_2 = "#fdb863"
+!$COLOR_A_1 = "#fee0b6"
+!$COLOR_NEUTRAL = "#f7f7f7"
+!$COLOR_B_1 = "#d8daeb"
+!$COLOR_B_2 = "#b2abd2"
+!$COLOR_B_3 = "#8073ac"
+!$COLOR_B_4 = "#542788"
+!$COLOR_B_5 = "#2d004b"
+!$COLOR_REL_LINE = "#8073ac"
+!$COLOR_REL_TEXT = "#8073ac"
+
+
 title Component Diagram
-Person(user, "Jokester", "Funny guy")
-Container_Boundary(jokeContainer, "Joke component") {
-    Component(jokeservice, "Joke Service", $techn=dotnet/API, $descr="Serves the Jokester")
-    ComponentDb(jokedb, "Joke Database", $techn=mysql, $descr="Persists jokes")
-    Component(loggingClient, "Logging Client", $techn="C#/Class Library", $descr="Client that orchestrates communication with the logging gateway")
-}
+AddRelTag("async", $textColor=$COLOR_REL_TEXT, $lineColor=$COLOR_REL_LINE, $lineStyle = DashedLine())
+AddComponentTag(notimplemented, $borderThickness=3, $borderStyle=DashedLine(), $legendText="Not implemented")
+
+Component_Ext(external, "External System")
 Container_Boundary(loggingContainer, "Logging component") {
-    Component(loggingGateway, "Logging Gateway", $techn=dotnet/API, $descr="Provides a unified gateway for a logging client")
+    Component(monitorservice, "Monitor Service", $techn=dotnet/API, $descr="Provides a unified gateway for a logging client", $tags=notimplemented)
     Component(loggingService, "Logging Service", $techn=dotnet/API, $descr="Logging API")
-    Component(tracingService, "Tracing Service", $techn=dotnet/API, $descr="Tracing API")
-    Component(metricsService, "Metrics Service", $techn=dotnet/API, $descr="Metrics API")
+    Component(tracingService, "Tracing Service", $techn=dotnet/API, $descr="Tracing API", $tags=notimplemented)
+    Component(metricsService, "Metrics Service", $techn=dotnet/API, $descr="Metrics API", $tags=notimplemented)
     ComponentDb(loggingdb, "Logging Database", $techn=mysql, $descr="Database for logging")
-    ComponentDb(tracingdb, "Tracing Database", $techn=mysql, $descr="Database for tracing")
-    ComponentDb(metricsdb, "Metrics Database", $techn=influxDb, $descr="Database for metrics")
-}
-Rel_D(user, jokeservice, "interacts", "HTTP")
-Rel_D(jokeservice, loggingClient, "tells", "Sublime code")
-Rel_R(jokeservice, jokedb, "Queries","dotnet/EntityFramework")
-Rel_D(loggingClient, loggingGateway, "logs", "ASYNC/HTTP")
-Rel(loggingGateway, loggingService, "Sends log messages", "ASYNC/HTTP")
-Rel(loggingGateway, tracingService, "Send trace messages", "ASYNC/HTTP")
-Rel(loggingGateway, metricsService, "Sends metrics", "ASYNC/HTTP")
+    ComponentDb(tracingdb, "Tracing Database", $techn=mysql, $descr="Database for tracing", $tags=notimplemented)
+    ComponentDb(metricsdb, "Metrics Database", $techn=influxDb, $descr="Database for metrics", $tags=notimplemented)
+}   
+
+Rel(external, monitorservice, "Uses", "ASYNC/HTTP", $tags=async)
+Rel(monitorservice, loggingService, "Sends log messages", "ASYNC/HTTP", $tags=async)
+Rel(monitorservice, tracingService, "Send trace messages", "ASYNC/HTTP", $tags=async)
+Rel(monitorservice, metricsService, "Sends metrics", "ASYNC/HTTP", $tags=async)
 Rel(loggingService, loggingdb, "Persist log messages", "EntityFramework")
 Rel(tracingService, tracingdb, "Persists traces", "EntityFramework")
 Rel(metricsService, metricsdb, "Persists metrics", "influxDbClient")
