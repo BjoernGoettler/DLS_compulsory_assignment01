@@ -1,0 +1,11 @@
+services:
+  jenkins:
+    container_name: Jenkins
+    image: jenkins/jenkins:lts-jdk17
+    volumes:
+      - jenkinsvolume:/var/jenkins_home
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+volumes:
+  jenkinsvolume:

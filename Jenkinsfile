@@ -9,5 +9,10 @@ pipeline {
                 sh 'echo hello!'
             }
         }
+        stage('Build') {
+            steps {
+                sh 'echo dotnet restore LoggerService/LoggerService.csproj'
+            }
+        }
     }
 }
