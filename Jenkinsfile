@@ -9,7 +9,7 @@ pipeline {
                 sh 'git fetch --all'
                 sh 'git checkout main'
                 sh 'git pull'
-                sh 'git merge origin/${GIT_BRANCH}'
+                sh 'git merge ${GIT_BRANCH}'
             }
         }
         stage('Build') {
