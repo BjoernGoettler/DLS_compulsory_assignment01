@@ -7,9 +7,7 @@ pipeline {
         stage('Git merge') {
             steps {
                 sh 'git fetch --all'
-                sh 'git checkout main'
-                sh 'git pull'
-                sh 'git merge ${GIT_BRANCH}'
+                sh 'git merge origin/main}'
             }
         }
         stage('Build') {
@@ -19,7 +17,10 @@ pipeline {
         }
         stage('Publish') {
             steps {
-                sh 'echo dotnet publish "LoggerService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false'
+                withCredentials([usernamePassword(CredentialsI: 'DockerHub',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh 'docker login -u $USERNAME -p $PASSWORD'
+                    sh 'docker compose push'
+                }
             }
         }
     }
