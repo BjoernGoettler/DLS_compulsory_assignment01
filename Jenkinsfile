@@ -12,6 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'echo dotnet restore LoggerService/LoggerService.csproj'
+                sh 'dotnet build "LoggerService.csproj" -c $BUILD_CONFIGURATION -o /app/build'
             }
         }
     }
