@@ -14,8 +14,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'echo dotnet restore LoggerService/LoggerService.csproj'
-                dotnetBuild "LoggerService.csproj"
+                sh 'docker compose build'
             }
         }
         stage('Publish') {
