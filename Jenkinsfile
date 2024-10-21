@@ -4,10 +4,16 @@ pipeline {
         pollSCM('* * * * *')
     }
     stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the repository
+                checkout scm
+            }
+        }
         stage('Git merge') {
             steps {
                 sh 'git fetch --all'
-                sh 'git merge main}'
+                sh 'git merge main'
             }
         }
         stage('Build') {
