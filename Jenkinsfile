@@ -13,7 +13,7 @@ pipeline {
         stage('Git merge') {
             steps {
                 sh 'git fetch --all'
-                sh 'git merge main'
+                sh 'git merge origin/main'
             }
         }
         stage('Build') {
