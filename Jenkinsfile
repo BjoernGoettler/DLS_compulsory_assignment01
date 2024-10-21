@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Publish') {
             steps {
-                withCredentials([usernamePassword(CredentialsId: '46bf83a0-5188-43e1-9e61-370bd97ead34',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withCredentials([usernamePassword(CredentialsId: 'dockerioId',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh 'docker login -u $USERNAME -p $PASSWORD'
                     sh 'docker compose push'
                 }
