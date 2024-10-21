@@ -21,7 +21,7 @@ services:
     build:
       context: .
       dockerfile: LoggerService/Dockerfile
-    image: larsvegascph/logger-service
+    image: larsvegascph/logger-service:$BUILD_NUMBER
     depends_on:
       logging-db:
         condition: service_started
